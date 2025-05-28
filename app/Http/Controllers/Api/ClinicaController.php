@@ -14,7 +14,20 @@ class ClinicaController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $clinicas = Clinica::get();
+            return response()->json([
+                'messagem' => $clinicas,
+                'sucesso' => true
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'messagem' => 'Não foi possível carregar as clínicas.',
+                'error' => $th->getMessage(),
+                'sucesso' => false
+            ]);
+        }
     }
 
     /**
@@ -27,7 +40,7 @@ class ClinicaController extends Controller
             return response()->json([
                     'mesagem' => 'Clínica cadastrada com sucesso!',
                     'sucesso' => true
-                ]);
+                ], 201);
         } catch (\Throwable $th) {
             // throw $th;
             return response()->json([
