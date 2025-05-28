@@ -54,9 +54,20 @@ class ClinicaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Clinica $clinica)
+    public function show(int $id)
     {
-        //
+        try {
+            $clinica = Clinica::findOrFail($id);
+            return response()->json([
+                    'mesagem' => $clinica,
+                    'sucesso' => true
+                ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'messagem' => 'Não foi possível apresentar a clínica.',
+                'error' => $th->getMessage(),
+            ]);
+        }
     }
 
     /**
