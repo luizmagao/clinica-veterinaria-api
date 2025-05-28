@@ -12,4 +12,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::apiResource('clinicas', ClinicaController::class);
+Route::apiResource('clinicas', ClinicaController::class)->middleware('auth:sanctum');
